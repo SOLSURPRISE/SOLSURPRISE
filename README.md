@@ -1,0 +1,3 @@
+# SOLSURPRISE_BOT
+
+### BonkScratch is an innovative blockchain solution designed to revolutionize the way gifts, rewards, and prizes are distributed. Leveraging the Solana ecosystem, it enables voucher or scratch coupon-based SOL transfers that are simple, secure, and instantaneous—without requiring recipients to share public keys or rely on third-party intermediaries such as MetaMask, Phantom, Solflare, or traditional escrow services. You can share your voucher across multiple platforms like Telegram, WhatsApp, Email, Discord, and more, making distribution seamless and universally accessible.
