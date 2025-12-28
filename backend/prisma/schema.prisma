@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+    provider = "prisma-client-js"
+    output   = "../src/generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Users {
+    id       String   @id @default(uuid())
+    tgUserId String   @unique
+    publicWallet   PublicWallet?
+    privateWallet PrivateWallet?
+    coupon Coupon[]
+}
+
+model PublicWallet {
+    id         String @id @default(uuid())
+    publicKey  String
+    privateKey String
+    userId     String @unique
+    user       Users  @relation(fields: [userId], references: [id])
+    publicWalletTransaction PublicWalletTransaction[]
+}
+
+model PrivateWallet {
+    id String @id @default(uuid())
+    publicKey String
+    privateKey String
+    UserId String @unique
+    user Users @relation(fields: [UserId], references: [id])
+    privateWalletTransaction PrivateWalletTransaction[]
+}
+
+model Coupon {
+    id String @id @default(uuid())
+    secret String @unique
+    amount String
+    privateWalletPublicKey String
+    privateWalletPrivateKey String
+    userId String
+    user Users @relation(fields: [userId], references: [id])
+}
+
+model PublicWalletTransaction {
+    id String @id @default(uuid())
+    publicWalletId String
+    publicWallet PublicWallet @relation(fields: [publicWalletId], references: [id])
+}
+
+model PrivateWalletTransaction {
+    id String @id @default(uuid())
+    privateWalletId String
+    privateWallet PrivateWallet @relation(fields: [privateWalletId], references: [id])
+}
